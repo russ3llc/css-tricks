@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="reset.css" />
+    <title>Transitioned Hover Background</title>
+    <style>
+      /* Disable transitions until page loads */
+      .preload * {
+        -webkit-transition: none !important;
+        -moz-transition: none !important;
+        -ms-transition: none !important;
+        -o-transition: none !important;
+        transition: none !important;
+      }
+      .navbar {
+        /* Unrelated styling */
+        position: fixed;
+        width: 100vw;
+        height: 100px;
+        transform: translateX(-50%) translateY(-2rem);
+        left: 50%;
+        padding: 0 5em;
+        color: white;
+        /* Required for effect */
+        background-color: #0003;
+        backdrop-filter: blur(16px);
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 0.3s;
+      }
+      /* Required for effect */
+      .navbar.scrolled-to-top {
+        backdrop-filter: blur(0px);
+        background-color: transparent;
+        transform: translateX(-50%) translateY(0);
+      }
+      /* Rest of styling is unrelated to effect */
+      .navlink-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        width: 50%;
+        margin: 0.5em 0;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: 900;
+        font-size: x-large;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        height: 150vh;
+        background: url("https://images.unsplash.com/photo-1689240766441-29de936097cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1335&q=80");
+      }
+      .main-content {
+        padding: 9em 1em;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body class="preload">
+    <header class="navbar">
+      <nav class="navlink-container scrolled-to-top">
+        <!-- <nav class="navlink-container scrolled-to-top"> -->
+        <a href="#" class="navlink">Home</a>
+        <a href="#" class="navlink">About Me</a>
+        <a href="#" class="navlink">Contact</a>
+      </nav>
+    </header>
+    <main class="container">
+      <header class="main-content">
+        <h1>Lorem Ipsum</h1>
+        <p>
+          Adipisicing mollit in velit enim deserunt sit tempor reprehenderit
+          culpa in quis nostrud. Dolor ad voluptate ipsum anim nisi culpa
+          laboris anim et sint aute adipisicing. Ut irure pariatur fugiat
+          commodo ex consectetur.
+        </p>
+      </header>
+    </main>
+    <footer>
+      Inspired by <a href="https://raster.app/">raster.app</a> website.
+    </footer>
+
+    <script>
+      const navbar = document.querySelector(".navbar");
+
+      // Scroll to top of page on refresh
+      if (history.scrollRestoration) {
+        history.scrollRestoration = "manual";
+        navbar.classList.add("scrolled-to-top");
+      } else {
+        window.onbeforeunload = () => {
+          window.scrollTo(0, 0);
+          navbar.classList.add("scrolled-to-top");
+        };
+      }
+
+      // Enable transitions after page load
+      window.onload = () => {
+        document.body.classList.remove("preload");
+      };
+
+      let scrollpos = window.scrollY;
+      const scrollThreshold = 50;
+
+      // When scrolled, add the class if scrolled past threshold
+      // Otherwise remove the class
+      window.addEventListener("scroll", () => {
+        scrollpos = window.scrollY;
+        if (scrollpos >= scrollThreshold) {
+          navbar.classList.remove("scrolled-to-top");
+        } else {
+          navbar.classList.add("scrolled-to-top");
+        }
+      });
+    </script>
+  </body>
+</html>

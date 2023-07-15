@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="reset.css" />
+    <title>Transitioned Hover Background</title>
+    <style>
+      *,
+      ::before,
+      ::after {
+        --scale-x: 1;
+        --scale-y: 1;
+      }
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: rgb(87, 121, 190);
+      }
+      .navlink {
+        color: white;
+        position: relative;
+        display: flex;
+        border-radius: 0.25rem;
+        padding: 0.25rem 0.75rem;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+      }
+      .navlink::after {
+        content: "";
+        position: absolute;
+        inset: 0 0 0 0;
+        --scale-x: 0.9;
+        --scale-y: 0.9;
+        transform: scaleX(var(--scale-x)) scaleY(var(--scale-y));
+        border-radius: 0.25rem;
+        background-color: currentColor;
+        opacity: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .navlink:hover::after,
+      .navlink:focus::after {
+        content: "";
+        --scale-x: 1;
+        --scale-y: 1;
+        transform: scaleX(var(--scale-x)) scaleY(var(--scale-y));
+        border-radius: 0.25rem;
+        opacity: 0.15;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <a href="#" class="navlink">hover me</a>
+    </main>
+    <footer>
+      Inspired by <a href="https://raster.app/">raster.app</a> website.
+    </footer>
+  </body>
+</html>
